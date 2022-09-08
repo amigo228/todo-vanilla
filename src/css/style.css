@@ -1,0 +1,70 @@
+*,
+*::before,
+*::after{
+    box-sizing: border-box;
+    margin: 0;
+}
+
+.main{
+    text-align: center;
+    font-size: 30px;
+}
+
+.logo{
+    font-size: 100px;
+    color: rgba(171, 167, 163, 0.573);
+    padding: 40px 0;
+}
+
+.card-holder{
+    width: 600px;
+    border: 2px solid rgba(171, 167, 163);
+    box-shadow: 1px 1px 3px rgba(171, 167, 163);
+    margin: 0 auto;
+    
+}
+
+.hero-holder{
+    width: 100%;
+    border-bottom: 2px solid rgba(171, 167, 163);
+    padding: 20px 20px;
+}
+
+.input-text{
+    border: none;
+    color: rgba(171, 167, 163);
+    padding-left: 20px;
+    font-size: 30px;
+    outline: none;
+}
+
+.points{
+    padding: 20px;
+    border-bottom: 1px solid rgba(171, 167, 163);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.state{
+    border: 2px solid rgba(171, 167, 163);
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    
+    align-items: center;
+}
+
+.task{
+    color: rgba(171, 167, 163);
+}
+
+.delete{
+    border: none;
+    background-color: white;
+    background-image: url('../img/close.svg');
+    background-size: contain;
+    width: 30px;
+    height: 30px;
+}
+
