@@ -22,6 +22,8 @@ const input = document.querySelector('.input-text');
 const container = document.querySelector('.point-holder');
 let arrOfTodos: Todos[] = [];
 
+//Add
+
 input.addEventListener('keyup', (e: KeyboardEvent)=> {
     const val = (document.querySelector('.input-text') as HTMLInputElement).value;
     if(val == "") return 0;
@@ -30,8 +32,12 @@ input.addEventListener('keyup', (e: KeyboardEvent)=> {
         clearContent();
         showArray(arrOfTodos);
         (document.querySelector('.input-text') as HTMLInputElement).value = '';
+        showItems(arrOfTodos);
+        checkItems(arrOfTodos);
     }
 });
+
+//Delete
 
 container.addEventListener('click', (e: Event) => {
     const target = e.target as HTMLButtonElement;
@@ -42,7 +48,11 @@ container.addEventListener('click', (e: Event) => {
         arrOfTodos.splice(attr, 1);
         showArray(arrOfTodos);
     }
+    showItems(arrOfTodos);
+    checkItems(arrOfTodos);
 });
+
+//Check
 
 container.addEventListener('click', (e: Event) => {
    const target = e.target as HTMLHtmlElement;
@@ -52,6 +62,7 @@ container.addEventListener('click', (e: Event) => {
        arrOfTodos[attr].setState();
        clearContent();
        showArray(arrOfTodos);
+
    }
 });
 
@@ -69,6 +80,21 @@ function showArray(arr: Todos[]) {
 function clearContent() {
     while (container.firstChild) {
         container.removeChild(container.firstChild);
+    }
+}
+
+function showItems(arr: Todos[]) : void {
+    const l: string = arr.length.toString();
+    const itemCount = document.getElementById('item-count');
+    itemCount.innerText = l;
+}
+
+function checkItems(arr: Todos[]) : void {
+    if(arr.length === 0) {
+        document.querySelector('.footer').classList.add('hide');
+    }
+    else {
+        document.querySelector('.footer').classList.remove('hide');
     }
 }
 

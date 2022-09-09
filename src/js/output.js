@@ -18,6 +18,7 @@ var Todos = /** @class */ (function () {
 var input = document.querySelector('.input-text');
 var container = document.querySelector('.point-holder');
 var arrOfTodos = [];
+//Add
 input.addEventListener('keyup', function (e) {
     var val = document.querySelector('.input-text').value;
     if (val == "")
@@ -27,8 +28,11 @@ input.addEventListener('keyup', function (e) {
         clearContent();
         showArray(arrOfTodos);
         document.querySelector('.input-text').value = '';
+        showItems(arrOfTodos);
+        checkItems(arrOfTodos);
     }
 });
+//Delete
 container.addEventListener('click', function (e) {
     var target = e.target;
     var check = target.closest('.delete');
@@ -38,15 +42,16 @@ container.addEventListener('click', function (e) {
         arrOfTodos.splice(attr, 1);
         showArray(arrOfTodos);
     }
+    showItems(arrOfTodos);
+    checkItems(arrOfTodos);
 });
+//Check
 container.addEventListener('click', function (e) {
     var target = e.target;
     var check = target.closest('.state');
     if (check) {
         var attr = Number(target.getAttribute('itemid'));
         arrOfTodos[attr].setState();
-        console.log(attr);
-        console.log(arrOfTodos);
         clearContent();
         showArray(arrOfTodos);
     }
@@ -60,5 +65,18 @@ function showArray(arr) {
 function clearContent() {
     while (container.firstChild) {
         container.removeChild(container.firstChild);
+    }
+}
+function showItems(arr) {
+    var l = arr.length.toString();
+    var itemCount = document.getElementById('item-count');
+    itemCount.innerText = l;
+}
+function checkItems(arr) {
+    if (arr.length === 0) {
+        document.querySelector('.footer').classList.add('hide');
+    }
+    else {
+        document.querySelector('.footer').classList.remove('hide');
     }
 }

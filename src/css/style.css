@@ -71,8 +71,8 @@
 .active .state::before {
     content: '';
     position: absolute;
-    width: 28px;
-    height: 28px;
+    width: 24px;
+    height: 24px;
     background-image: url("../img/done.svg");
     background-size: cover;
     top: 50%;
@@ -82,4 +82,54 @@
 
 .active .task {
     text-decoration: line-through;
+}
+
+.footer,
+.footer-holder {
+    display: flex;
+    align-items: center;
+}
+
+.footer-holder {
+    padding: 10px 20px;
+    width: 100%;
+    justify-content: space-between;
+}
+
+.item-count {
+    color: rgba(171, 167, 163);
+    font-size: 16px;
+}
+
+.btn-holder,
+.btn-clear {
+    display: flex;
+    align-items: center;
+}
+
+.btn-holder button,
+.btn-clear button {
+    font-size: 16px;
+    color: rgba(171, 167, 163);
+    background-color: transparent;
+    border: none;
+    padding: 2px 4px;
+    transition: ease-in-out 0.3s;
+}
+
+.btn-holder button:hover,
+.btn-clear button:hover {
+    color: rgba(171, 167, 163);
+    border-radius: 3px;
+    background-color: transparent;
+    border: 1px solid rgba(171, 167, 163, 0.5);
+}
+
+.btn-holder {
+    width: 30%;
+    justify-content: space-between;
+}
+
+.hide {
+    display: none;
 }
