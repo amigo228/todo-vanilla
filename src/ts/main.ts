@@ -1,13 +1,20 @@
-let index: number = 1;
-
 class Todos {
     private str: string = "";
+    private state: boolean = false;
     constructor(str: string) {
         this.str = str;
     }
 
     public getStr() {
         return this.str;
+    }
+
+    public setState() {
+        this.state = !this.state;
+    }
+
+    public getState() {
+        return this.state ? 'active' : '';
     }
 }
 
@@ -17,6 +24,7 @@ let arrOfTodos: Todos[] = [];
 
 input.addEventListener('keyup', (e: KeyboardEvent)=> {
     const val = (document.querySelector('.input-text') as HTMLInputElement).value;
+    if(val == "") return 0;
     if(e.key == 'Enter') {
         arrOfTodos.push(new Todos(val));
         clearContent();
@@ -34,12 +42,23 @@ container.addEventListener('click', (e: Event) => {
         arrOfTodos.splice(attr, 1);
         showArray(arrOfTodos);
     }
-})
+});
+
+container.addEventListener('click', (e: Event) => {
+   const target = e.target as HTMLHtmlElement;
+   const check = target.closest('.state');
+   if (check) {
+       const attr = Number(target.getAttribute('itemid'));
+       arrOfTodos[attr].setState();
+       clearContent();
+       showArray(arrOfTodos);
+   }
+});
 
 function showArray(arr: Todos[]) {
     for (let i = 0; i < arr.length; i++) {
-        const block = `<div class="points">
-                    <span class="state"></span>
+        const block = `<div class="points ${arr[i].getState()}">
+                    <span class="state" itemid=${i}></span>
                     <p class="task">${arr[i].getStr()}</p>
                     <button class="delete" id=${i}></button>
                 </div>`;

@@ -51,7 +51,7 @@
     border-radius: 50%;
     width: 30px;
     height: 30px;
-    
+    position: relative;
     align-items: center;
 }
 
@@ -68,3 +68,18 @@
     height: 30px;
 }
 
+.active .state::before {
+    content: '';
+    position: absolute;
+    width: 28px;
+    height: 28px;
+    background-image: url("../img/done.svg");
+    background-size: cover;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.active .task {
+    text-decoration: line-through;
+}
