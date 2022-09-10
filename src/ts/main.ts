@@ -16,10 +16,18 @@ class Todos {
     public getState() {
         return this.state ? 'active' : '';
     }
+
+    public getStateBool () {
+        return this.state;
+    }
 }
 
 const input = document.querySelector('.input-text');
 const container = document.querySelector('.point-holder');
+const clearBtn = document.querySelector('.btn-clear');
+const showAllBtn = document.querySelector('.show-all-btn');
+const showActiveBtn = document.querySelector('.show-active-btn');
+const showCompletedBtn = document.querySelector('.show-completed-btn');
 let arrOfTodos: Todos[] = [];
 
 //Add
@@ -32,8 +40,6 @@ input.addEventListener('keyup', (e: KeyboardEvent)=> {
         clearContent();
         showArray(arrOfTodos);
         (document.querySelector('.input-text') as HTMLInputElement).value = '';
-        showItems(arrOfTodos);
-        checkItems(arrOfTodos);
     }
 });
 
@@ -48,8 +54,6 @@ container.addEventListener('click', (e: Event) => {
         arrOfTodos.splice(attr, 1);
         showArray(arrOfTodos);
     }
-    showItems(arrOfTodos);
-    checkItems(arrOfTodos);
 });
 
 //Check
@@ -62,9 +66,30 @@ container.addEventListener('click', (e: Event) => {
        arrOfTodos[attr].setState();
        clearContent();
        showArray(arrOfTodos);
-
    }
 });
+
+//Clear
+
+clearBtn.addEventListener('click', () => {
+    arrOfTodos = arrOfTodos.filter(item => !item.getStateBool());
+    clearContent();
+    showArray(arrOfTodos);
+})
+
+// ------ Filters
+
+//Show All
+
+showAllBtn.addEventListener('click', () => showAll(arrOfTodos));
+
+//Show Active
+
+showActiveBtn.addEventListener('click', () => showActive(arrOfTodos));
+
+//Show Completed
+
+showCompletedBtn.addEventListener('click', () => showCompleted(arrOfTodos));
 
 function showArray(arr: Todos[]) {
     for (let i = 0; i < arr.length; i++) {
@@ -75,6 +100,8 @@ function showArray(arr: Todos[]) {
                 </div>`;
         container.insertAdjacentHTML('beforeend', block);
     }
+    showItems(arrOfTodos);
+    checkItems(arrOfTodos);
 }
 
 function clearContent() {
@@ -96,6 +123,21 @@ function checkItems(arr: Todos[]) : void {
     else {
         document.querySelector('.footer').classList.remove('hide');
     }
+}
+
+function showAll(arr: Todos[]) : void {
+    clearContent();
+    showArray(arr);
+}
+
+function showActive(arr: Todos[]) : void {
+    clearContent();
+    showArray(arr.filter(item => !item.getStateBool()));
+}
+
+function showCompleted(arr: Todos[]) : void {
+    clearContent();
+    showArray(arr.filter(item => item.getStateBool()));
 }
 
 

@@ -13,10 +13,17 @@ var Todos = /** @class */ (function () {
     Todos.prototype.getState = function () {
         return this.state ? 'active' : '';
     };
+    Todos.prototype.getStateBool = function () {
+        return this.state;
+    };
     return Todos;
 }());
 var input = document.querySelector('.input-text');
 var container = document.querySelector('.point-holder');
+var clearBtn = document.querySelector('.btn-clear');
+var showAllBtn = document.querySelector('.show-all-btn');
+var showActiveBtn = document.querySelector('.show-active-btn');
+var showCompletedBtn = document.querySelector('.show-completed-btn');
 var arrOfTodos = [];
 //Add
 input.addEventListener('keyup', function (e) {
@@ -28,8 +35,6 @@ input.addEventListener('keyup', function (e) {
         clearContent();
         showArray(arrOfTodos);
         document.querySelector('.input-text').value = '';
-        showItems(arrOfTodos);
-        checkItems(arrOfTodos);
     }
 });
 //Delete
@@ -42,8 +47,6 @@ container.addEventListener('click', function (e) {
         arrOfTodos.splice(attr, 1);
         showArray(arrOfTodos);
     }
-    showItems(arrOfTodos);
-    checkItems(arrOfTodos);
 });
 //Check
 container.addEventListener('click', function (e) {
@@ -56,11 +59,26 @@ container.addEventListener('click', function (e) {
         showArray(arrOfTodos);
     }
 });
+//Clear
+clearBtn.addEventListener('click', function () {
+    arrOfTodos = arrOfTodos.filter(function (item) { return !item.getStateBool(); });
+    clearContent();
+    showArray(arrOfTodos);
+});
+// ------ Filters
+//Show All
+showAllBtn.addEventListener('click', function () { return showAll(arrOfTodos); });
+//Show Active
+showActiveBtn.addEventListener('click', function () { return showActive(arrOfTodos); });
+//Show Completed
+showCompletedBtn.addEventListener('click', function () { return showCompleted(arrOfTodos); });
 function showArray(arr) {
     for (var i = 0; i < arr.length; i++) {
         var block = "<div class=\"points ".concat(arr[i].getState(), "\">\n                    <span class=\"state\" itemid=").concat(i, "></span>\n                    <p class=\"task\">").concat(arr[i].getStr(), "</p>\n                    <button class=\"delete\" id=").concat(i, "></button>\n                </div>");
         container.insertAdjacentHTML('beforeend', block);
     }
+    showItems(arrOfTodos);
+    checkItems(arrOfTodos);
 }
 function clearContent() {
     while (container.firstChild) {
@@ -79,4 +97,16 @@ function checkItems(arr) {
     else {
         document.querySelector('.footer').classList.remove('hide');
     }
+}
+function showAll(arr) {
+    clearContent();
+    showArray(arrOfTodos);
+}
+function showActive(arr) {
+    clearContent();
+    showArray(arr.filter(function (item) { return !item.getStateBool(); }));
+}
+function showCompleted(arr) {
+    clearContent();
+    showArray(arr.filter(function (item) { return item.getStateBool(); }));
 }
