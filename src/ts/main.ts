@@ -1,5 +1,5 @@
 class Todos {
-    private str: string = "";
+    private readonly str: string = "";
     private state: boolean = false;
     constructor(str: string) {
         this.str = str;

@@ -100,7 +100,7 @@ function checkItems(arr) {
 }
 function showAll(arr) {
     clearContent();
-    showArray(arrOfTodos);
+    showArray(arr);
 }
 function showActive(arr) {
     clearContent();
